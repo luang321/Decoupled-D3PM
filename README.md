@@ -2,4 +2,4 @@
 Decoupled D3PM(D4PM)
 Code is coming soon
 
-code for vis is available
+code for render is available

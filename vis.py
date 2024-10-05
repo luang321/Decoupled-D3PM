@@ -96,7 +96,6 @@ def draw(
     mlab.view( azimuth=45, elevation=54.735610317245346, distance= 139.8427289506119,focalpoint= [25.56833243 ,25.59999985 , 1.60527777])
     #azimuth, elevation, distance, focal_point = mlab.view()
     #print(f"Azimuth: {azimuth}, Elevation: {elevation}, Distance: {distance}, Focal point: {focal_point}")
-    #print("draw_complete")
     mlab.savefig(save_path)
     mlab.close()
     #mlab.show()
@@ -165,13 +164,8 @@ def draw_once(y_pred,fov_mask_1,save_path,dataset="semantic_kitti"):
             voxel_size=0.2,
 
         )
-    #display.stop()
-    #display.close()
+    
 path  = "/data/lha/sepfusion/output/inpaint"
-#"/data/lha/sepfusion/output/kitti/9_2_kitti_small_lr_444_500epoch"
-#"/data/lha/diffusion/output/kitti/7_10_down_16_selective_poolfusion_one_step_argmax_poolfusion"
-#"/data/lha/semantic_cgan/output/kitti/17_6_only3d_16_c_512_no_invalid_with_gan_loss_ccm_sim_loss"
-#"/data/lha/semantic/output/kitti/15_26_bigger_lr_longer_schedul_sample_softmax_one_hot_gan_vox_kitti_1_WD0.0001_lr0.0005" #"/data/lha/semantic/output/kitti/15_25_sigmoid_gan_vox_kitti_1_WD0.0001_lr0.0001"
 
 def draw_once_folder(folder):
     folder_path = os.path.join(path, folder)
@@ -195,18 +189,15 @@ def draw_once_folder(folder):
             print(output_path)
 if __name__ == "__main__":
     os.environ['CUDA_VISIBLE_DEVICES'] = "3"
-    os.environ['LIBGL_ALWAYS_SOFTWARE'] = '0'  # 禁用软件渲染
+    os.environ['LIBGL_ALWAYS_SOFTWARE'] = '0'  
     os.environ['LIBGL_ALWAYS_INDIRECT'] = '0' 
-    os.environ['DISPLAY'] = ':99'  # 设置 DISPLAY 环境
+    os.environ['DISPLAY'] = ':99'  
     display = Display(visible=0, size=(1280, 1024))
     display.start()
     folders = [f for f in os.listdir(path) if os.path.isdir(os.path.join(path, f))]
-    
     matching_folders = [f for f in folders if f.startswith("vis_")]
     draw_once_folder(path)
-    '''
-    draw_once_folder("vis")
-    '''
     for folder in folders:
         draw_once_folder(folder)
     display.stop()
+    display.close()
